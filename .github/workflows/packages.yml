@@ -228,7 +228,6 @@ jobs:
     - name: Free additional disk space (if needed)
       if: ${{ steps.build-info.outputs.docker-build == 'false' && steps.build-info.outputs.skip-building != 'true' }}
       run: |
-        sudo apt install docker.io -y
         sudo systemctl enable docker
         sudo systemctl start docker
 
