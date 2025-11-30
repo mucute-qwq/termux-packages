@@ -228,13 +228,9 @@ jobs:
     - name: Free additional disk space (if needed)
       if: ${{ steps.build-info.outputs.docker-build == 'false' && steps.build-info.outputs.skip-building != 'true' }}
       run: |
-        ./scripts/setup-ubuntu.sh
-        # need to unset these for setup-android-sdk.sh.
-        unset NDK ANDROID_HOME
-        ./scripts/setup-android-sdk.sh
-        rm -f ${HOME}/lib/ndk-*.zip ${HOME}/lib/sdk-*.zip
-        sudo apt install ninja-build
-        ./scripts/free-space.sh
+        sudo apt install docker.io -y
+        sudo systemctl enable docker
+        sudo systemctl start docker
 
     - name: Build packages
       if: ${{ steps.build-info.outputs.skip-building != 'true' }}
