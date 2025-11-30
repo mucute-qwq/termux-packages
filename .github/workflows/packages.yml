@@ -239,7 +239,7 @@ jobs:
     - name: Build packages
       if: ${{ steps.build-info.outputs.skip-building != 'true' }}
       env:
-        DOCKER_BUILD: ${{ steps.build-info.outputs.docker-build }}
+        DOCKER_BUILD: "true"
         TERMUX_DOCKER__CONTAINER_EXEC_COMMAND__PRE_CHECK_IF_WILL_BUILD_PACKAGES: "true"
       run: |
         declare -a packages=()
@@ -261,7 +261,7 @@ jobs:
             unset NDK ANDROID_HOME
             ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
           else
-            ./scripts/run-docker.sh ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
+            ./scripts/run-docker.sh ./scripts/setup-ubuntu.sh && ./scripts/setup-android-sdk.sh && ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
           fi
         fi
 
