@@ -256,7 +256,7 @@ jobs:
             unset NDK ANDROID_HOME
             ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
           else
-            ./scripts/run-docker.sh which java ./scripts/setup-ubuntu.sh && ./scripts/setup-android-sdk.sh && ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
+            ./scripts/run-docker.sh which java && ldd java && ./scripts/setup-ubuntu.sh && ./scripts/setup-android-sdk.sh && ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
           fi
         fi
 
